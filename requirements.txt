@@ -1,0 +1,4 @@
+python-dotenv==0.10.3
+fastapi==0.33.0
+pyjwt
+passlib[bcrypt]
