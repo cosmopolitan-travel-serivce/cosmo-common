@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 
 from ctscommon.security.models import CTSUser
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/")
 
 
 async def get_connected_user(token: str = Depends(oauth2_scheme)):
