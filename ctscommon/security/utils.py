@@ -36,7 +36,7 @@ def create_access_token(user: CTSUser, expires_delta: timedelta = None):
     return encoded_jwt
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
+async def get_current_user(token: str) -> CTSUser:
     credentials_exception = HTTPException(
         status_code=HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
