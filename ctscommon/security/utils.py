@@ -36,19 +36,22 @@ def create_access_token(user: CTSUser, expires_delta: timedelta = None):
     return encoded_jwt
 
 
-async def get_current_user(token: str) -> CTSUser:
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
     credentials_exception = HTTPException(
         status_code=HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        decode_options = {}
+        # TODO check expiration date of token or add options = {"verify_exp": True} option jwt.decode
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM], options=decode_options)
         username: str = payload.get("username")
         email: str = payload.get("email")
         permissions: List[str] = payload.get("permissions")
         managed_customers: List[str] = payload.get("managed_customers")
         customer: str = payload.get("customer")
+        # expiration_date: str = payload.get("exp")
         if username is None:
             raise credentials_exception
         user = CTSUser(username=username, email=email, full_name=None, customer=customer, permissions=permissions,
