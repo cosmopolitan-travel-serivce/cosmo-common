@@ -15,6 +15,12 @@ setuptools.setup(
     author_email='mohamed@ctsfares.com',
     packages=setuptools.find_packages(),
     install_requires=[
+        "pydantic",
+        "python-dotenv",
+        "fastapi",
+        "pyjwt",
+        "passlib[bcrypt]",
+        "py_eureka_client",
     ],
     test_suite='nose.collector',
     tests_require=['nose'],
