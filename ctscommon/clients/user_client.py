@@ -40,3 +40,6 @@ class UserClient(MicroServiceClient):
         data = {"old_password": old_password, "new_password": new_password,
                 "confirm_new_password": new_password_confirm}
         return self._post_url("/passwordchange", data)
+
+    def validate_user(self, login: str) -> bool:
+        return self._put_url(f"/{login}/validate", None)

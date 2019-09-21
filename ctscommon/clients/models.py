@@ -54,3 +54,47 @@ class PasswordResetEnd(BaseModel):
     token: str
     new_password: str
     confirm_new_password: str
+
+
+class PccCredential(BaseModel):
+    pcc: str
+    username: str
+    password: str
+    gds: str
+
+
+class PccCredentialUpdate(BaseModel):
+    pcc: str = None
+    username: str = None
+    password: str = None
+    gds: str = None
+
+
+class Role(BaseModel):
+    code: str
+    name: str
+    context: str
+
+
+class RoleUpdate(BaseModel):
+    code: str = None
+    name: str = None
+    context: str = None
+
+
+class Permissions(BaseModel):
+    permissions: List[str]
+
+
+class Profile(BaseModel):
+    code: str
+    name: str
+
+
+class ProfileUpdate(BaseModel):
+    code: str = None
+    name: str = None
+
+
+class Profiles(BaseModel):
+    profiles: List[str]
