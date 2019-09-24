@@ -51,11 +51,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
         permissions: List[str] = payload.get("permissions")
         managed_customers: List[str] = payload.get("managed_customers")
         customer: str = payload.get("customer")
+        offices: List[str] = payload.get("offices")
         # expiration_date: str = payload.get("exp")
         if username is None:
             raise credentials_exception
         user = CTSUser(username=username, email=email, full_name=None, customer=customer, permissions=permissions,
-                       managed_customers=managed_customers)
+                       managed_customers=managed_customers, offices=offices)
     except PyJWTError:
         raise credentials_exception
     if user is None:

@@ -25,3 +25,4 @@ class CTSUser(BaseModel):
     customer: Optional[bool] = None
     permissions: Optional[List[str]] = None
     managed_customers: Optional[List[str]] = None
+    offices: Optional[List[str]] = None
