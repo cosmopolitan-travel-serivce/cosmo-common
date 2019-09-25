@@ -8,14 +8,15 @@ from ctscommon.security.random import generate_nonce
 log = logging.getLogger(__file__)
 
 
-def internal_get_config(current_value, name, env_name, raise_error: bool = False):
+def internal_get_config(current_value, name, env_name, raise_error: bool = False, caster=None):
     if not current_value:
-        current_value = get_config(env_name)
+        current_value = get_config(env_name, None)
         if raise_error and not current_value:
             log.error(f"Halt registering Eureka client. Either give the {name} or set {env_name} environment")
             raise ValueError
         log.warning(f"No {name}. Will use {current_value} read from {env_name} environment")
-    return current_value
+
+    return caster(current_value) if (caster and current_value) else current_value
 
 
 async def init_client(eureka_url: str = None, application_name: str = None, instance_port: int = None,
@@ -33,8 +34,9 @@ async def init_client(eureka_url: str = None, application_name: str = None, inst
     try:
         eureka_url = internal_get_config(eureka_url, "Eureka URL", "EUREKA_URL", True)
         application_name = internal_get_config(application_name, "Application name", "APP_NAME", True)
-        instance_port = int(internal_get_config(instance_port, "instance port given", "APP_PORT", False))
-    except ValueError:
+        instance_port = internal_get_config(instance_port, "instance port given", "APP_PORT", False, int)
+    except ValueError as e:
+        log.error(f"Error when starting Eureka. Lack of parameter: {str(e)}")
         return False
     if not instance_id:
         instance_id = f"{application_name}:{generate_nonce(21)}"
@@ -53,16 +55,17 @@ class MicroServiceClient:
         self.base_url = base_url
 
     def _get_url(self, suffix_url, headers=None):
-        return eureka_client.do_service(self.service_name, self.base_url + suffix_url, headers=headers)
+        return eureka_client.do_service(self.service_name, self.base_url + suffix_url, headers=headers
+                                        , return_type="json")
 
     def _post_url(self, suffix_url, data, headers=None):
         return eureka_client.do_service(self.service_name, self.base_url + suffix_url, method="POST", data=data,
-                                        headers=headers)
+                                        headers=headers, return_type="json")
 
     def _put_url(self, suffix_url, data, headers=None):
         return eureka_client.do_service(self.service_name, self.base_url + suffix_url, method="PUT", data=data,
-                                        headers=headers)
+                                        headers=headers, return_type="json")
 
     def _delete_url(self, suffix_url, data, headers=None):
         return eureka_client.do_service(self.service_name, self.base_url + suffix_url, method="DELETE", data=data,
-                                        headers=headers)
+                                        headers=headers, return_type="json")
