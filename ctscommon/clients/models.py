@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-
+from datetime import date
 class Address(BaseModel):
     country: str
     state: str
@@ -26,6 +26,8 @@ class Address(BaseModel):
 class UserCreation(BaseModel):
     first_name: str
     last_name: str
+    username: str
+    password: str
     customer: str
     email: str
     phone: str
@@ -61,6 +63,7 @@ class PccCredential(BaseModel):
     username: str
     password: str
     gds: str
+    
 
 
 class PccCredentialUpdate(BaseModel):
@@ -89,11 +92,21 @@ class Permissions(BaseModel):
 class Profile(BaseModel):
     code: str
     name: str
+    customer : str
+
+
+class AddPermissionsToProfile(BaseModel):
+    permissions: str
+
+
+class RemoveProfileRole(BaseModel):
+    permissions: str
 
 
 class ProfileUpdate(BaseModel):
     code: str = None
     name: str = None
+    customer: str = None
 
 
 class Profiles(BaseModel):

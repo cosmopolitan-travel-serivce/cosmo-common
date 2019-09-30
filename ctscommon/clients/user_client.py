@@ -2,7 +2,7 @@ from typing import List
 
 from ctscommon.clients import MicroServiceClient
 from ctscommon.clients.models import UserCreation, User
-
+import json
 
 class UserClient(MicroServiceClient):
     def __init__(self):
@@ -15,7 +15,7 @@ class UserClient(MicroServiceClient):
         return self._get_url("/me")
 
     def create_user(self, user: UserCreation) -> User:
-        return self._post_url("/", user)
+        return self._post_url("/", user, {})
 
     def get_user(self, login: str) -> User:
         return self._get_url(f"/{login}")
@@ -34,12 +34,12 @@ class UserClient(MicroServiceClient):
 
     def validate_user_password_reset(self, login: str, token: str, new_password: str, new_password_confirm: str) -> bool:
         data = {"token": token, "new_password": new_password, "confirm_new_password": new_password_confirm}
-        return self._put_url(f"/{login}/passwordreset", data)
+        return self._put_url(f"/{login}/passwordreset", data=data, headers = {"Content-Type": "application/json", "accept": "application/json"})
 
     def change_password(self, old_password: str, new_password: str, new_password_confirm: str):
         data = {"old_password": old_password, "new_password": new_password,
                 "confirm_new_password": new_password_confirm}
-        return self._post_url("/passwordchange", data)
+        return self._post_url("/passwordchange", data=data)
 
     def validate_user(self, login: str) -> bool:
         return self._put_url(f"/{login}/validate", None)

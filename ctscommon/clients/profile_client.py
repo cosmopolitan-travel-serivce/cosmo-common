@@ -16,10 +16,10 @@ class ProfileClient(MicroServiceClient):
     def create_profile(self, profile: Profile) -> Profile:
         return self._post_url("/", profile)
 
-    def update_role(self, code: str, profile_update: ProfileUpdate) -> Profile:
+    def update_profile(self, code: str, profile_update: ProfileUpdate) -> Profile:
         return self._put_url(f"/{code}", profile_update)
 
-    def remove_profile(self, profile: Profile):
+    def remove_profile(self, code : str, profile: Profile):
         return self._delete_url("/", profile)
 
     def add_permissions_to_user(self, login: str, permissions: Permissions):
