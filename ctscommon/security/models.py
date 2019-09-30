@@ -4,7 +4,6 @@ from typing import Optional, List
 from pydantic import BaseModel
 
 
-
 class AuditableEntity:
     created_date: datetime
     created_by: str
@@ -23,6 +22,9 @@ class CTSUser(BaseModel):
     email: Optional[str] = None
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
-    customer: Optional[bool] = None
+    customer: Optional[str] = None
     permissions: Optional[List[str]] = None
     managed_customers: Optional[List[str]] = None
+    offices: Optional[List[str]] = None
+    is_cts_staff = Optional[bool] = None
+    is_agency_admin = Optional[bool] = None
