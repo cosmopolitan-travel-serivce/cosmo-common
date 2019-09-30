@@ -15,7 +15,13 @@ class UserClient(MicroServiceClient):
         return self._get_url("/me")
 
     def create_user(self, user: UserCreation) -> User:
-        return self._post_url("/", user)
+
+        response = self._post_url("/", user.dict(skip_defaults=True))
+        print(f"status code: {response.status_code}")
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return {}
 
     def get_user(self, login: str) -> User:
         return self._get_url(f"/{login}")

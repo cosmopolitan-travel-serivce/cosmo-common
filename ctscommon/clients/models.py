@@ -26,6 +26,8 @@ class Address(BaseModel):
 class UserCreation(BaseModel):
     first_name: str
     last_name: str
+    username: str
+    password: str
     customer: str
     email: str
     phone: str

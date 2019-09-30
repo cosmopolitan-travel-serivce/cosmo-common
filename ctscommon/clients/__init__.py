@@ -2,6 +2,7 @@ import logging
 
 import py_eureka_client.eureka_client as eureka_client
 
+from ctscommon.clients.alternate_worker import _walker_generator
 from ctscommon.config.loader import get_config
 from ctscommon.security.random import generate_nonce
 
@@ -59,8 +60,8 @@ class MicroServiceClient:
                                         , return_type="json")
 
     def _post_url(self, suffix_url, data, headers=None):
-        return eureka_client.do_service(self.service_name, self.base_url + suffix_url, method="POST", data=data,
-                                        headers=headers, return_type="json")
+        return eureka_client.walk_nodes(self.service_name, self.base_url + suffix_url,
+                                        walker=_walker_generator("post", data=data, headers=headers))
 
     def _put_url(self, suffix_url, data, headers=None):
         return eureka_client.do_service(self.service_name, self.base_url + suffix_url, method="PUT", data=data,
