@@ -34,6 +34,15 @@ class UserCreation(BaseModel):
     address: Address
 
 
+class UserUpdate(BaseModel):
+    first_name: str = None
+    last_name: str = None
+    customer: str = None
+    email: str = None
+    phone: str = None
+    address: Address = None
+
+
 class User(UserCreation):
     username: str
     managed_customers: List[str]
