@@ -14,14 +14,25 @@ class ProfileClient(MicroServiceClient):
         return self._get_url(f"/{code}/")
 
     def create_profile(self, profile: Profile) -> Profile:
-        return self._post_url("/", profile)
+        response = self._post_url("/", profile.dict(skip_defaults=True))
+        print(f"status code: {response.status_code}")
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return {}
 
-    def update_role(self, code: str, profile_update: ProfileUpdate) -> Profile:
-        return self._put_url(f"/{code}", profile_update)
-
+    def update_profile(self, code: str, profile_update: ProfileUpdate) -> Profile:
+        response = self._put_url(f"/{login}", profile_update.dict(skip_defaults=True))
+        print(f"status code: {response.status_code}")
+        if response.status_code == 202:
+            return response.payload
+        else:
+            return {}
+    
     def remove_profile(self, profile: Profile):
-        return self._delete_url("/", profile)
-
+        role = self.get_profile_by_code(code)
+        return self._delete_url(f"/{code}", profile)
+    
     def add_permissions_to_user(self, login: str, permissions: Permissions):
         return self._post_url("/{login}/user", permissions)
 

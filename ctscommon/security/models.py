@@ -26,5 +26,5 @@ class CTSUser(BaseModel):
     permissions: Optional[List[str]] = None
     managed_customers: Optional[List[str]] = None
     offices: Optional[List[str]] = None
-    is_cts_staff = Optional[bool] = None
-    is_agency_admin = Optional[bool] = None
+    is_cts_staff: Optional[bool] = None
+    is_agency_admin: Optional[bool] = None

@@ -1,7 +1,7 @@
 from typing import List
 
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.models import UserCreation, User
+from ctscommon.clients.models import UserCreation, User, UserUpdate
 
 
 class UserClient(MicroServiceClient):
@@ -26,8 +26,13 @@ class UserClient(MicroServiceClient):
     def get_user(self, login: str) -> User:
         return self._get_url(f"/{login}")
 
-    def update_user(self, login: str, user: UserCreation) -> User:
-        return self._put_url(f"/{login}", user)
+    def update_user(self, login: str, user: UserUpdate) -> User:
+        response = self._put_url(f"/{login}", user.dict(skip_defaults=True))
+        print(f"status code: {response.status_code}")
+        if response.status_code == 202:
+            return response.payload
+        else:
+            return {}
 
     def activate_user(self, login: str) -> bool:
         return self._put_url(f"/{login}/activate", None)

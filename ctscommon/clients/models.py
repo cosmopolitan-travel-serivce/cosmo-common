@@ -33,6 +33,14 @@ class UserCreation(BaseModel):
     phone: str
     address: Address
 
+class UserUpdate(BaseModel):
+    first_name: str = None
+    last_name: str = None
+    customer: str = None
+    email: str = None
+    phone: str = None
+    address: Address = None
+
 
 class User(UserCreation):
     username: str
@@ -91,11 +99,13 @@ class Permissions(BaseModel):
 class Profile(BaseModel):
     code: str
     name: str
+    customer: str
 
 
 class ProfileUpdate(BaseModel):
     code: str = None
     name: str = None
+    customer: str
 
 
 class Profiles(BaseModel):

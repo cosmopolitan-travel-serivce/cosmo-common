@@ -14,13 +14,24 @@ class RoleClient(MicroServiceClient):
         return self._get_url(f"/{code}/")
 
     def create_role(self, role: Role) -> Role:
-        return self._post_url("/", role)
+        response = self._post_url("/", role.dict(skip_defaults=True))
+        print(f"status code: {response.status_code}")
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return {}
 
     def update_role(self, code: str, role_update: RoleUpdate) -> Role:
-        return self._put_url(f"/{code}", role_update)
-
-    def remove_role(self, role: Role):
-        return self._delete_url("/", role)
+        response = self._put_url(f"/{login}", role.dict(skip_defaults=True))
+        print(f"status code: {response.status_code}")
+        if response.status_code == 202:
+            return response.payload
+        else:
+            return {}
+        
+    def remove_role(self, code: str):
+        role = self.get_role_by_code(code)
+        return self._delete_url(f"/{code}", role)
 
     def add_permissions_to_user(self, login: str, permissions: Permissions):
         return self._post_url("/{login}/user", permissions)
