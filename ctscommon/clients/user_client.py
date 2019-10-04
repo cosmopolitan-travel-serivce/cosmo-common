@@ -1,11 +1,7 @@
 from typing import List
 
 from ctscommon.clients import MicroServiceClient
-<<<<<<< HEAD
-from ctscommon.clients.models import UserCreation, User, UserUpdate
-=======
 from ctscommon.clients.models import UserCreation, User, UserUpdate, PasswordChange
->>>>>>> 878a63d192ccf27ecdc98cc8f71bce538468a7d7
 
 
 class UserClient(MicroServiceClient):

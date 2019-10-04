@@ -68,7 +68,6 @@ class PasswordChange(BaseModel):
     new_password: str
     confirm_new_password: str
 
-
 class PasswordResetEnd(BaseModel):
     token: str
     new_password: str
@@ -119,3 +118,11 @@ class ProfileUpdate(BaseModel):
 
 class Profiles(BaseModel):
     profiles: List[str]
+
+
+
+class Customers(BaseModel):
+    customers: List[str]
+
+class Offices(BaseModel):
+    offices: List[str]
