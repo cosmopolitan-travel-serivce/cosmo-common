@@ -22,7 +22,7 @@ class RoleClient(MicroServiceClient):
             return {}
 
     def update_role(self, code: str, role_update: RoleUpdate) -> Role:
-        response = self._put_url(f"/{login}", role.dict(skip_defaults=True))
+        response = self._put_url(f"/{code}", role_update.dict(skip_defaults=True))
         print(f"status code: {response.status_code}")
         if response.status_code == 202:
             return response.payload
@@ -32,15 +32,3 @@ class RoleClient(MicroServiceClient):
     def remove_role(self, code: str):
         role = self.get_role_by_code(code)
         return self._delete_url(f"/{code}", role)
-
-    def add_permissions_to_user(self, login: str, permissions: Permissions):
-        return self._post_url("/{login}/user", permissions)
-
-    def create_customer_permissions(self, customer: str, permissions: Permissions):
-        return self._post_url(f"/{customer}/customer", permissions)
-
-    def remove_customer_permissions(self, customer: str, permissions: Permissions):
-        return self._delete_url(f"/{customer}/customer", permissions)
-
-    def get_permissions_by_customer(self, cutomer: str):
-        return self._get_url(f"/{cutomer}/customer")

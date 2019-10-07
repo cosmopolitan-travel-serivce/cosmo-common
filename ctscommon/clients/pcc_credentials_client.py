@@ -2,10 +2,9 @@ from ctscommon.clients import MicroServiceClient
 from ctscommon.clients.models import PccCredential, PccCredentialUpdate
 from typing import List
 
-
 class PccCredntialClient(MicroServiceClient):
     def __init__(self):
-        MicroServiceClient.__init__(self, "AUTH", "/api/pcc-credentials")
+            MicroServiceClient.__init__(self, "AUTH", "/api/pcc-credentials")
 
     def get_all_pcc_credentials(self) -> List[PccCredential]:
         return self._get_url("/")
@@ -24,3 +23,4 @@ class PccCredntialClient(MicroServiceClient):
 
     def remove_pcc_credentials(self, pcc_credential: PccCredential):
         return self._delete_url("/", pcc_credential)
+ 
