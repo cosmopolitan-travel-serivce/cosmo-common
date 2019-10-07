@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.models import Role, RoleUpdate, Permissions
+from ctscommon.clients.models import Role, RoleUpdate
 from typing import List
 
 
@@ -28,7 +28,7 @@ class RoleClient(MicroServiceClient):
             return response.payload
         else:
             return {}
-        
+
     def remove_role(self, code: str):
         role = self.get_role_by_code(code)
         return self._delete_url(f"/{code}", role)

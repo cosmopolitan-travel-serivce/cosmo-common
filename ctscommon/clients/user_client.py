@@ -1,7 +1,7 @@
 from typing import List
 
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.models import UserCreation, User, UserUpdate, PasswordChange, Customers, PasswordResetEnd,Profiles,  Offices, Permissions
+from ctscommon.clients.models import UserCreation, User, UserUpdate, PasswordChange, Customers, PasswordResetEnd, Profiles, Offices, Permissions
 
 
 class UserClient(MicroServiceClient):
@@ -31,7 +31,7 @@ class UserClient(MicroServiceClient):
         if response.status_code == 202:
             return response.payload
         else:
-            return {} 
+            return {}
 
     def activate_user(self, login: str) -> bool:
         return self._put_url(f"/{login}/activate", None)
@@ -61,7 +61,7 @@ class UserClient(MicroServiceClient):
     def validate_user(self, login: str) -> bool:
         return self._put_url(f"/{login}/validate", None)
 
-    def search_user(self, login: str)  -> User:
+    def search_user(self, login: str) -> User:
         return self._get_url("/search", None)
 
     def rest_user_password_init(self, login: str) -> bool:
@@ -85,7 +85,7 @@ class UserClient(MicroServiceClient):
     def remove_permissions_to_user(self, login: str, permissions: Permissions):
         return self._delete_url(f"/{login}/permissions", permissions)
 
-    def update_user_permissions(self,login: str, permissions: Permissions):
+    def update_user_permissions(self, login: str, permissions: Permissions):
         return self._put_url(f"/{login}/permissions", permissions)
 
     def create_user_profile(self, login: str, profiles: Profiles):

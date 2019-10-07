@@ -33,14 +33,6 @@ class UserCreation(BaseModel):
     phone: str
     address: Address
 
-class UserUpdate(BaseModel):
-    first_name: str = None
-    last_name: str = None
-    customer: str = None
-    email: str = None
-    phone: str = None
-    address: Address = None
-
 
 class UserUpdate(BaseModel):
     first_name: str = None
@@ -67,6 +59,7 @@ class PasswordChange(BaseModel):
     old_password: str
     new_password: str
     confirm_new_password: str
+
 
 class PasswordResetEnd(BaseModel):
     token: str
@@ -120,9 +113,9 @@ class Profiles(BaseModel):
     profiles: List[str]
 
 
-
 class Customers(BaseModel):
     customers: List[str]
+
 
 class Offices(BaseModel):
     offices: List[str]
