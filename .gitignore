@@ -1,0 +1,14 @@
+.idea/**
+bin/**
+lib/**
+share/**
+include/**
+*.iml
+**.pyc
+**__pycache__/**
+*.db
+env/**
+.vscode
+.env
+.coverage
+dist/**
