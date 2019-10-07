@@ -3,6 +3,7 @@ bin/**
 lib/**
 share/**
 include/**
+man/**
 *.iml
 **.pyc
 **__pycache__/**

@@ -41,4 +41,3 @@ class AuthenticationError(UserError):
 
     def __str__(self):
         return f"Authentication error for user {self.login}."
-
