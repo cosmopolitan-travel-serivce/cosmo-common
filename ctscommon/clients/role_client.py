@@ -1,7 +1,8 @@
 from ctscommon.clients import MicroServiceClient
 from ctscommon.clients.models import Role, RoleUpdate
 from typing import List
-
+from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+from fastapi import HTTPException
 
 class RoleClient(MicroServiceClient):
     def __init__(self):
@@ -19,7 +20,9 @@ class RoleClient(MicroServiceClient):
         if response.status_code == 201:
             return response.payload
         else:
-            return {}
+            raise HTTPException(
+                status_code=HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="Error on created Role")
 
     def update_role(self, code: str, role_update: RoleUpdate) -> Role:
         response = self._put_url(f"/{code}", role_update.dict(skip_defaults=True))
@@ -27,7 +30,9 @@ class RoleClient(MicroServiceClient):
         if response.status_code == 202:
             return response.payload
         else:
-            return {}
+            raise HTTPException(
+                status_code=HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="Error on updated Role")
 
     def remove_role(self, code: str):
         role = self.get_role_by_code(code)

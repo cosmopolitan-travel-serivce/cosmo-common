@@ -1,6 +1,8 @@
 from ctscommon.clients import MicroServiceClient
 from ctscommon.clients.models import Profile, ProfileUpdate, Permissions
 from typing import List
+from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+from fastapi import HTTPException
 
 
 class ProfileClient(MicroServiceClient):
@@ -19,7 +21,9 @@ class ProfileClient(MicroServiceClient):
         if response.status_code == 201:
             return response.payload
         else:
-            return {}
+            raise HTTPException(
+                status_code=HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="Error on created Profile")
 
     def update_profile(self, code: str, profile_update: ProfileUpdate) -> Profile:
         response = self._put_url(f"/{code}", profile_update.dict(skip_defaults=True))
@@ -27,7 +31,9 @@ class ProfileClient(MicroServiceClient):
         if response.status_code == 202:
             return response.payload
         else:
-            return {}
+            raise HTTPException(
+                status_code=HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="Error on update Profile")
 
     def remove_profile(self, code: str):
         profile = self.get_profile_by_code(code)
