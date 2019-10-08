@@ -10,6 +10,7 @@ class ProfileNotFoundError(ProfileError):
     def __str__(self):
         return f"Profile {self.code} not found"
 
+
 class ProfileAlreadyExistsError(ProfileError):
     def __init__(self, code: str, customer: str):
         super().__init__(code)
@@ -17,5 +18,3 @@ class ProfileAlreadyExistsError(ProfileError):
 
     def __str__(self):
         return f"Profile with code: {self.code} and customer: {self.customer} has already exists"
-
-
