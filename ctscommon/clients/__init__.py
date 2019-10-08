@@ -56,8 +56,7 @@ class MicroServiceClient:
         self.base_url = base_url
 
     def _get_url(self, suffix_url, headers=None):
-        return eureka_client.do_service(self.service_name, self.base_url + suffix_url, headers=headers
-                                        , return_type="json")
+        return eureka_client.do_service(self.service_name, self.base_url + suffix_url, headers=headers, return_type="json")
 
     def _post_url(self, suffix_url, data, headers=None):
         return eureka_client.walk_nodes(self.service_name, self.base_url + suffix_url,
