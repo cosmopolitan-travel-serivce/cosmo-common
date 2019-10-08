@@ -30,7 +30,7 @@ class INVOICETYPE(str, Enum):
     ANY = ''
 
 
-class ContractBase(BaseModel):
+class Contract(BaseModel):
     description: str = None
     application_type: APPLICATIONTYPES
     trip_type: TRIPTYPE
@@ -112,14 +112,14 @@ class ContractBase(BaseModel):
         orm_mode = True
 
 
-class ContractCreate(ContractBase):
+class ContractCreate(Contract):
     name: str
 
     class Config:
         orm_mode = True
 
 
-class ContractGet(ContractBase):
+class ContractGet(Contract):
     id: int
     name: str
 
@@ -127,5 +127,5 @@ class ContractGet(ContractBase):
         orm_mode = True
 
 
-class ContractUpdate(ContractBase):
+class ContractUpdate(Contract):
     pass
