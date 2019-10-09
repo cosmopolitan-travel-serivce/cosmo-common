@@ -36,32 +36,23 @@ class Deal(BaseModel):
     customer: str = None
     group: str = None
 
-    class Config:
-        orm_mode = True
-
 
 class DealCreate(Deal):
     contract: str
-
-    class Config:
-        orm_mode = True
 
 
 class DealUpdate(Deal):
     contract_id: int = None
 
-    class Config:
-        orm_mode = True
 
+class DealDelete(Deal):
+    contract_id: int = None
 
 class DealGet(Deal):
     id: int
     owrt: str
     rule_type: str
     contract: ContractGet
-
-    class Config:
-        orm_mode = True
 
 
 class Itinerary(BaseModel):

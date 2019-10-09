@@ -1,11 +1,11 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.accounting.contract.models import Contract, ContractCreate, ContractDelete , ContractUpdate
+from ctscommon.clients.communication.contract.models import Contract, ContractCreate, ContractDelete , ContractUpdate
 from typing import List
 
 
-class AccountingContract(MicroServiceClient):
+class CommunicationITemplate(MicroServiceClient):
     def __init__(self):
-        MicroServiceClient.__init__(self, "ACCOUNTING", "/api/contracts")
+        MicroServiceClient.__init__(self, "COMMUNICATION", "/api/communication")
 
     def get_all_contracts(self) -> List[Contract]:
         return self._get_url("/")

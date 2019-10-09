@@ -108,24 +108,16 @@ class Contract(BaseModel):
     claim_half_dropnet: bool = None
     form_of_payment: str = None
 
-    class Config:
-        orm_mode = True
-
 
 class ContractCreate(Contract):
     name: str
-
-    class Config:
-        orm_mode = True
-
 
 class ContractGet(Contract):
     id: int
     name: str
 
-    class Config:
-        orm_mode = True
-
+class ContractDelete(Contract):
+    id: int
 
 class ContractUpdate(Contract):
-    pass
+    id: int
