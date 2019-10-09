@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.models import Profile, ProfileUpdate, Permissions
+from ctscommon.clients.models import Profile, ProfileUpdate, Permissions, Profiles
 from typing import List
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from fastapi import HTTPException
@@ -13,11 +13,10 @@ class ProfileClient(MicroServiceClient):
         return self._get_url("/")
 
     def get_profile_by_code(self, code: str) -> List[Profile]:
-        return self._get_url(f"/{code}/")
+        return self._get_url(f"/{code}")
 
     def create_profile(self, profile: Profile) -> Profile:
         response = self._post_url("/", profile.dict(skip_defaults=True))
-        print(f"status code: {response.status_code}")
         if response.status_code == 201:
             return response.payload
         else:
@@ -36,17 +35,22 @@ class ProfileClient(MicroServiceClient):
                 detail="Error on update Profile")
 
     def remove_profile(self, code: str):
-        profile = self.get_profile_by_code(code)
-        return self._delete_url(f"/{code}", profile)
+        return self._delete_url(f"/{code}", code)
 
     def add_permissions_to_profile(self, code: str, permissions: Permissions):
-        return self._post_url(f"/{code}/permissions", permissions)
+        return self._post_url(f"/{code}/permissions", permissions.dict())
 
     def remove_profile_role(self, code: str, permissions: Permissions):
-        return self._delete_url(f"/{code}/permissions", permissions)
+        return self._delete_url(f"/{code}/permissions", permissions.permissions)
 
-    def get_permissions_by_profile(self, code: str) -> List[str]:
-        return self._get_url(f"/{code}/")
+    def get_permissions_by_profile(self, code: str) -> List[Permissions]:
+        return self._get_url(f"/{code}/permissions")
 
     def update_profile_role(self, code: str, permissions: Permissions):
         return self._put_url(f"/{code}/permissions", permissions)
+
+    def create_user_profile(self, login: str, profiles: Profiles):
+        return self._post_url(f"/{login}/profiles", profiles)
+
+    def remove_user_profile(self, login: str, profiles: Profiles):
+        return self._delete_url(f"/{login}/profiles", profiles)
