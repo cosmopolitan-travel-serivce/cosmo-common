@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.crm.cards.models import CardGet,CardUpdate, CardCreate
+from ctscommon.clients.crm.cards.models import CardGet, CardUpdate, CardCreate
 from typing import List
 
 

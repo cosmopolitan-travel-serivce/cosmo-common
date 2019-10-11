@@ -26,7 +26,6 @@ class ProfileClient(MicroServiceClient):
 
     def update_profile(self, code: str, profile_update: ProfileUpdate) -> Profile:
         response = self._put_url(f"/{code}", profile_update.dict(skip_defaults=True))
-        print(f"status code: {response.status_code}")
         if response.status_code == 202:
             return response.payload
         else:
@@ -35,7 +34,7 @@ class ProfileClient(MicroServiceClient):
                 detail="Error on updated Profile")
 
     def remove_profile(self, code: str):
-        return self._delete_url(f"/{code}", code)
+        return self._delete_url(f"/{code}")
 
     def add_permissions_to_profile(self, code: str, permissions: Permissions):
         return self._post_url(f"/{code}/permissions", permissions.dict())
