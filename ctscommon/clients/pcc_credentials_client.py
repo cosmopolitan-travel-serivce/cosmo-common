@@ -23,4 +23,4 @@ class PccCredntialClient(MicroServiceClient):
         return self._put_url(f"/{gds}/{pcc}", pcc_credential.dict())
 
     def remove_pcc_credentials(self, gds: str, pcc: str):
-        return self._delete_url(f"/{gds}/{pcc}", gds, pcc)
+        return self._delete_url(f"/{gds}/{pcc}", data=None)

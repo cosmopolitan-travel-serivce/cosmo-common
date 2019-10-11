@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.models import Profile, ProfileUpdate, Permissions, Profiles
+from ctscommon.clients.models import Profile, ProfileUpdate, Permissions
 from typing import List
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from fastapi import HTTPException
@@ -48,9 +48,3 @@ class ProfileClient(MicroServiceClient):
 
     def update_profile_role(self, code: str, permissions: Permissions):
         return self._put_url(f"/{code}/permissions", permissions.dict())
-
-    def create_user_profile(self, login: str, profiles: Profiles):
-        return self._post_url(f"/{login}/profiles", profiles)
-
-    def remove_user_profile(self, login: str, profiles: Profiles):
-        return self._delete_url(f"/{login}/profiles", profiles)
