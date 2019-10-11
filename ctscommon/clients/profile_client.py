@@ -32,7 +32,7 @@ class ProfileClient(MicroServiceClient):
         else:
             raise HTTPException(
                 status_code=HTTP_422_UNPROCESSABLE_ENTITY,
-                detail="Error on update Profile")
+                detail="Error on updated Profile")
 
     def remove_profile(self, code: str):
         return self._delete_url(f"/{code}", code)
@@ -41,13 +41,13 @@ class ProfileClient(MicroServiceClient):
         return self._post_url(f"/{code}/permissions", permissions.dict())
 
     def remove_profile_role(self, code: str, permissions: Permissions):
-        return self._delete_url(f"/{code}/permissions", permissions.permissions)
+        return self._delete_url(f"/{code}/permissions", permissions.dict())
 
     def get_permissions_by_profile(self, code: str) -> List[Permissions]:
         return self._get_url(f"/{code}/permissions")
 
     def update_profile_role(self, code: str, permissions: Permissions):
-        return self._put_url(f"/{code}/permissions", permissions)
+        return self._put_url(f"/{code}/permissions", permissions.dict())
 
     def create_user_profile(self, login: str, profiles: Profiles):
         return self._post_url(f"/{login}/profiles", profiles)

@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.models import Role, RoleUpdate, Permissions
+from ctscommon.clients.models import Role, RoleUpdate
 from typing import List
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from fastapi import HTTPException
@@ -35,12 +35,3 @@ class RoleClient(MicroServiceClient):
 
     def remove_role(self, code: str):
         return self._delete_url(f"/{code}", code)
-
-    def add_permissions_to_user(self, login: str, permissions: Permissions):
-        return self._post_url(f"/{login}/managed-customers", permissions)
-
-    def remove_permissions_to_user(self, login: str, permissions: Permissions):
-        return self._delete_url(f"/{login}/permissions", permissions)
-
-    def update_user_permissions(self, login: str, permissions: Permissions):
-        return self._put_url(f"/{login}/permissions", permissions)
