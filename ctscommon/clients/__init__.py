@@ -66,6 +66,6 @@ class MicroServiceClient:
         return eureka_client.walk_nodes(self.service_name, self.base_url + suffix_url,
                                         walker=_walker_generator("put", json=data, headers=headers))
 
-    def _delete_url(self, suffix_url, data, headers=None):
+    def _delete_url(self, suffix_url, data , headers=None):
         return eureka_client.walk_nodes(self.service_name, self.base_url + suffix_url,
                                         walker=_walker_generator("delete", json=data, headers=headers))
