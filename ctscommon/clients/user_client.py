@@ -47,9 +47,8 @@ class UserClient(MicroServiceClient):
     def reset_user_password(self, login: str) -> bool:
         return self._get_url(f"/{login}/passwordreset")
 
-    def validate_user_password_reset(self, login: str, token: str, new_password: str, new_password_confirm: str) -> bool:
-        data = {"token": token, "new_password": new_password, "confirm_new_password": new_password_confirm}
-        response = self._put_url(f"/{login}/passwordreset", data)
+    def validate_user_password_reset(self, login: str, reset_data: PasswordResetEnd) -> bool:
+        response = self._put_url(f"/{login}/passwordreset", reset_data.dict())
         if response.status_code == 202:
             return response.payload
         else:
