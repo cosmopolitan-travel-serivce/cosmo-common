@@ -11,7 +11,7 @@
       "test": {
         "scripts": {
           "test-setup": "flake8 ctscommon",
-          "test": "nosetests --with-coverage --cover-package=ctscommon --cover-min-percentage=40 --cover-tests"
+          "test": "nosetests --with-coverage --cover-package=ctscommon --cover-min-percentage=35 --cover-tests"
         }
       }
     }

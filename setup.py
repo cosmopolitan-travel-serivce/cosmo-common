@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='ctscommon',
-    version='0.0.1',
+    version='0.3.4',
     description='A python package to centralize everything common for CTS micro services',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -15,6 +15,12 @@ setuptools.setup(
     author_email='mohamed@ctsfares.com',
     packages=setuptools.find_packages(),
     install_requires=[
+        "pydantic",
+        "python-dotenv",
+        "fastapi",
+        "pyjwt",
+        "passlib[bcrypt]",
+        "py_eureka_client",
     ],
     test_suite='nose.collector',
     tests_require=['nose'],
