@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.crm.pccs.models import PccCreate, PccGet, PccUpdate, Pcc
+from ctscommon.clients.crm.pccs.models import PccCreate, PccUpdate, Pcc
 from typing import List
 
 
@@ -24,4 +24,4 @@ class CRMPcc(MicroServiceClient):
         return self._put_url(f"/{gds}/{code}", pcc_in.dict())
 
     def delete_pcc(self, code: str, gds: str):
-        return self._delete_url(f"/{gds}/{code}", data = None)
+        return self._delete_url(f"/{gds}/{code}", data=None)

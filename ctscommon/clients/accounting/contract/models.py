@@ -1,33 +1,32 @@
-from typing import List
 from pydantic import BaseModel
 from enum import Enum
-import datetime
+
 
 class APPLICATIONTYPES(str, Enum):
-    ALL = 'ALL'
-    B2B = 'B2B'
-    B2C = 'B2C'
-    TDU = 'TDU'
-    ANY = ''
+    ALL = "ALL"
+    B2B = "B2B"
+    B2C = "B2C"
+    TDU = "TDU"
+    ANY = ""
 
 
 class TRIPTYPE(str, Enum):
-    Domestic = 'D'
-    International = 'I'
-    ANY = ''
+    Domestic = "D"
+    International = "I"
+    ANY = ""
 
 
 class SEASONALITY(str, Enum):
-    LOW = 'L'
-    SHOULDER = 'K,J'
-    HIGH = 'H,P,Q'
-    ANY = ''
+    LOW = "L"
+    SHOULDER = "K, J"
+    HIGH = "H, P, Q"
+    ANY = ""
 
 
 class INVOICETYPE(str, Enum):
-    Sale = 'S'
-    Refund = 'R'
-    ANY = ''
+    Sale = "S"
+    Refund = "R"
+    ANY = ""
 
 
 class Contract(BaseModel):
@@ -96,14 +95,14 @@ class Contract(BaseModel):
     inbound_flight_duration: str = None
     outbound_flight_duration: str = None
     top_level: str = None
-    depart_from: datetime.date = None
-    depart_until: datetime.date = None
+    depart_from: str = None
+    depart_until: str = None
     depart_blackout: str = None
-    issued_from: datetime.date = None
-    issued_until: datetime.date = None
+    issued_from: str = None
+    issued_until: str = None
     issued_blackout: str = None
-    return_from: datetime.date = None
-    return_until: datetime.date = None
+    return_from: str = None
+    return_until: str = None
     return_blackout: str = None
     claim_half_dropnet: bool = None
     form_of_payment: str = None
@@ -112,12 +111,15 @@ class Contract(BaseModel):
 class ContractCreate(Contract):
     name: str
 
+
 class ContractGet(Contract):
-    id: int
+    code: str
     name: str
 
+
 class ContractDelete(Contract):
-    id: int
+    name: str
+
 
 class ContractUpdate(Contract):
-    id: int
+    name: str

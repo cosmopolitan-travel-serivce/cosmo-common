@@ -5,7 +5,7 @@ import datetime
 
 class ITemplateVariable(BaseModel):
     name: str = None
-    defaultValue: str = None
+    default_value: str = None
     required: bool = False
 
 

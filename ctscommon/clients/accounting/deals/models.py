@@ -26,7 +26,6 @@ class OWRTTYPE(str, Enum):
 
 
 class Deal(BaseModel):
-
     pax_type: str = None
     fare_type: str = None
     airline: str = None
@@ -48,6 +47,7 @@ class DealUpdate(Deal):
 class DealDelete(Deal):
     contract_id: int = None
 
+
 class DealGet(Deal):
     id: int
     owrt: str
@@ -56,14 +56,12 @@ class DealGet(Deal):
 
 
 class Itinerary(BaseModel):
-
     origin: str = None
     destination: str = None
     departureDate: str = None
 
 
 class Itineraries(BaseModel):
-
     itineraries: List[Itinerary]
     adult: int = 0
     child: int = 0

@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.communication.contract.models import Contract, ContractCreate, ContractDelete , ContractUpdate
+from ctscommon.clients.communication.contract.models import Contract, ContractCreate, ContractDelete, ContractUpdate
 from typing import List
 
 

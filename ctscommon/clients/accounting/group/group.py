@@ -1,27 +1,43 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.accounting.group.models import GroupCreate, GroupGet, GroupUpdate, Group, GroupDelete
+from ctscommon.clients.accounting.group.models import GroupCreate, GroupGet, GroupUpdate
 from typing import List
 
 
 class AccountingGroup(MicroServiceClient):
     def __init__(self):
-        MicroServiceClient.__init__(self, "ACCOUNTING", "/api/contracts")
+        MicroServiceClient.__init__(self, "ACCOUNTING", "/api/groups")
 
-    def get_all_groups(self) -> List[Group]:
-        return self._get_url("/")
-
-    def create_group(self, group: GroupCreate) -> Group:
-        response = self._post_url("/", group.dict(skip_defaults=True))
+    def read_groups(self) -> List[GroupGet]:
+        response = self._get_url("/")
         if response.status_code == 201:
             return response.payload
         else:
-            return {}
+            return response.payload['message']
 
-    def get_group(self, group:GroupGet) -> Group:
-        return self._get_url(f"/{group}")
+    def create_group(self, group_in: GroupCreate) -> GroupGet:
+        response = self._post_url("/", group_in.dict(skip_defaults=True))
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return response.payload['message']
 
-    def update_group(self, group:GroupUpdate) -> Group:
-        return self._put_url(f"/{group}")
+    def read_group(self, code: str) -> GroupGet:
+        response = self._get_url(f"/{code}")
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return response.payload['message']
 
-    def remove_group(self, group: GroupDelete):
-        return self._delete_url(f"/{group}")
+    def update_group(self, code: str, group_in: GroupUpdate) -> GroupGet:
+        response = self._put_url(f"/{code}", group_in.dict())
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return response.payload['message']
+
+    def delete_group(self, code: str):
+        response = self._delete_url(f"/{code}", data=None)
+        if response.status_code == 201:
+            return response.payload
+        else:
+            return response.payload['message']

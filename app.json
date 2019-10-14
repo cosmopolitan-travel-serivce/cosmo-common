@@ -10,8 +10,7 @@
     "environments": {
       "test": {
         "scripts": {
-          "test-setup": "flake8 ctscommon",
-          "test": "nosetests --with-coverage --cover-package=ctscommon --cover-min-percentage=35 --cover-tests"
+          "test-setup": "flake8 ctscommon"
         }
       }
     }

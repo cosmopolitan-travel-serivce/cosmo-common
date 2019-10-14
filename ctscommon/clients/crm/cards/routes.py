@@ -1,5 +1,5 @@
 from ctscommon.clients import MicroServiceClient
-from ctscommon.clients.crm.cards.models import CardGet,CardUpdate, CardCreate
+from ctscommon.clients.crm.cards.models import CardGet, CardUpdate, CardCreate
 from typing import List
 
 
@@ -27,4 +27,4 @@ class CRMCards(MicroServiceClient):
         return self._put_url(f"/{card_number}", card_in.dict())
 
     def delete_card(self, card_number: str):
-        return self._delete_url(f"/{card_number}", data = None)
+        return self._delete_url(f"/{card_number}", data=None)

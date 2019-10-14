@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
+
 
 class PccBase(BaseModel):
     gds: str = None

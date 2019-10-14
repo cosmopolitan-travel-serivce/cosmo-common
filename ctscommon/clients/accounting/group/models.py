@@ -7,6 +7,7 @@ class Group(BaseModel):
     name: str = None
     customers: List[str] = []
 
+
 class GroupCreate(BaseModel):
     code: str
     name: str = None
@@ -22,8 +23,10 @@ class GroupUpdate(BaseModel):
     name: str = None
     customers: List[str] = []
 
+
 class GroupDelete(BaseModel):
     id: int = None
+
 
 class GroupGet(BaseModel):
     code: str
