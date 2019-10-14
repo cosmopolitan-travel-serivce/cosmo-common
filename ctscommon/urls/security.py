@@ -19,6 +19,7 @@ no_auth_requirement: SecurityRequirement = None
 
 log = logging.getLogger(__file__)
 
+
 def has_one_permission(user: CTSUser, permissions: Set[str]) -> bool:
     """
     This method will verify if a given user has one of permissions.
