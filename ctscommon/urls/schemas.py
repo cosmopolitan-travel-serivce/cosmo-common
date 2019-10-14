@@ -20,7 +20,7 @@ class ApiUrlUpdate(BaseModel):
     permissions: Set[str] = set()
 
     def __str__(self):
-        return f"(name: {self.name})"
+        return f"name: {self.name}"
 
 
 class ApiUrlCreate(ApiUrlUpdate):
@@ -30,11 +30,11 @@ class ApiUrlCreate(ApiUrlUpdate):
     url: str
 
     def __str__(self):
-        return f"(url: {self.url}, operation_id: {self.operation_id})"
+        return f"{ApiUrlUpdate.__str__(self)}, url: {self.url}, operation_id: {self.operation_id}"
 
 
 class ApiUrl(ApiUrlCreate):
     service: str
 
     def __str__(self):
-        return f"(service: {self.service})"
+        return f"(service: {self.service}, {ApiUrlCreate.__str__(self)})"
