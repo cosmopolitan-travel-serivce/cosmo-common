@@ -34,4 +34,4 @@ class RoleClient(MicroServiceClient):
                 detail="Error on updated Role")
 
     def remove_role(self, code: str):
-        return self._delete_url(f"/{code}", code)
+        return self._delete_url(f"/{code}")

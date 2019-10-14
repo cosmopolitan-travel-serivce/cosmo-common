@@ -26,7 +26,6 @@ class ProfileClient(MicroServiceClient):
 
     def update_profile(self, code: str, profile_update: ProfileUpdate) -> Profile:
         response = self._put_url(f"/{code}", profile_update.dict(skip_defaults=True))
-        print(f"status code: {response.status_code}")
         if response.status_code == 202:
             return response.payload
         else:
