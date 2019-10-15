@@ -10,8 +10,12 @@ class UserClient(MicroServiceClient):
     def __init__(self):
         MicroServiceClient.__init__(self, "AUTH", "/api/users")
 
-    def get_all_users(self) -> List[User]:
-        return self._get_url("/")
+    def get_all_users(self, page: int = 1, per_page: int = None, token: str = None) -> List[User]:
+        headers = self.default_headers
+        if token:
+            headers.update({"Authorization": f"Bearer {token}"})
+        params = {"page": page, "per_page": per_page}
+        return self._get_url("/", params, headers=headers)
 
     def get_current_user(self) -> User:
         return self._get_url("/me")
