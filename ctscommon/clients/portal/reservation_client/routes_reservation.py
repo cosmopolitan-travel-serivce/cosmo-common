@@ -22,7 +22,7 @@ class ReservationClient(MicroServiceClient):
         return self._get_url("/")
 
     def search_prices(self, pq_in: SearchPriceQuote):
-        response = self._post_url("/", pq_in.dict(skip_defaults=True))
+        response = self._post_url("/price", pq_in.dict(skip_defaults=True))
         if response.status_code == 201:
             return response.payload
         else:
