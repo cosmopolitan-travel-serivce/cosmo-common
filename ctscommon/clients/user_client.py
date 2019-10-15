@@ -63,6 +63,7 @@ class UserClient(MicroServiceClient):
             return False
 
     def change_password(self, login: str, change_data: PasswordChange, token: str = None) -> bool:
+        headers = self.default_headers
         if token:
             headers.update({"Authorization": f"Bearer {token}"})
         response = self._put_url("/passwordchange", change_data.dict(skip_defaults=True), headers=headers)
@@ -76,7 +77,7 @@ class UserClient(MicroServiceClient):
     def validate_user(self, login: str) -> bool:
         return self._put_url(f"/{login}/validate", None)
 
-    def search_user(self, param: str, token: str = None ) -> User:
+    def search_user(self, param: str, token: str = None) -> User:
         headers = self.default_headers
         params = {"param": param}
         if token:
