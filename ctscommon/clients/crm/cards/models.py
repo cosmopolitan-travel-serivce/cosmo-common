@@ -25,7 +25,7 @@ class CardCreate(CardBase):
 
 
 class CardUpdate(CardBase):
-    pass
+    card_number: str = None
 
 
 class CardGet(CardBase):
