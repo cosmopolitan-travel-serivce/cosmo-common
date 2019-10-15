@@ -3,20 +3,20 @@ from typing import List
 import datetime
 
 
-class ITemplateVariable(BaseModel):
+class TemplateVariable(BaseModel):
     name: str = None
     default_value: str = None
     required: bool = False
 
 
-class ITemplate(BaseModel):
+class Template(BaseModel):
     uuid: str = None
     name: str = None
     slug: str = None
-    variables: List[ITemplateVariable] = None
+    variables: List[TemplateVariable] = None
 
 
-class INotification(BaseModel):
+class Notification(BaseModel):
     template: str = None
     templateSlug: str = None
     sender: str = None
@@ -29,23 +29,23 @@ class INotification(BaseModel):
     sentAt: datetime.date = None
 
 
-class CreateITemplate(ITemplate):
+class CreateTemplate(Template):
     uuid: str = None
     name: str = None
     slug: str = None
-    variables: List[ITemplateVariable] = None
+    variables: List[TemplateVariable] = None
 
 
-class ITemplateUpdate(ITemplate):
+class TemplateUpdate(Template):
     itemplate_id: int = None
 
 
-class ITemplateDelete(ITemplate):
+class TemplateDelete(Template):
     itemplate_id: int = None
 
 
-class ITemplateGet(ITemplate):
+class TemplateGet(Template):
     uuid: str = None
     name: str = None
     slug: str = None
-    variables: List[ITemplateVariable] = None
+    variables: List[TemplateVariable] = None
