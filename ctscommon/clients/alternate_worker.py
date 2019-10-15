@@ -11,6 +11,12 @@ class ApiResponse:
         self.error: Any = None
 
 
+class ApiResponseError(Exception):
+    def __init__(self, status_code, message):
+        self.status_code = status_code
+        self.message = message
+
+
 def _walker_generator(method: str, headers: Dict[str, str], data: Dict = None, params: Dict = None,
                       json: Any = None, **kwargs):
 
