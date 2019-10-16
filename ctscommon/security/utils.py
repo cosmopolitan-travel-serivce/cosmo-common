@@ -11,16 +11,35 @@ from ctscommon.config.loader import get_config
 from ctscommon.security import oauth2_scheme
 from ctscommon.security.models import CTSUser
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 default_jwt_secret_key = None
 SECRET_KEY = get_config("JWT_SECRET_KEY", default_jwt_secret_key)
 ALGORITHM = get_config("JWT_ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(get_config("JWT_ACCESS_TOKEN_EXPIRE_MINUTES", 30))
+_CONFIG_LOADED = False
 
 
-def verify_password(plain_password, hashed_password):
+def load_all_config():
+    global SECRET_KEY
+    global ALGORITHM
+    global ACCESS_TOKEN_EXPIRE_MINUTES
+    global _CONFIG_LOADED
+    if _CONFIG_LOADED is False:
+        SECRET_KEY = get_config("JWT_SECRET_KEY", default_jwt_secret_key)
+        ALGORITHM = get_config("JWT_ALGORITHM", "HS256")
+        ACCESS_TOKEN_EXPIRE_MINUTES = int(get_config("JWT_ACCESS_TOKEN_EXPIRE_MINUTES", 30))
+        _CONFIG_LOADED = True
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+old_pwd_context = CryptContext(schemes=["django_pbkdf2_sha256"], deprecated="auto")
+
+
+def verify_password(plain_password, hashed_password) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
+
+
+def verify_old_password(plain_password, hashed_password) -> bool:
+    return old_pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password):
@@ -28,6 +47,7 @@ def get_password_hash(password):
 
 
 def create_access_token(user: CTSUser, expires_delta: timedelta = None):
+    load_all_config()
     to_encode = user.dict()
     if not expires_delta:
         expires_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -38,6 +58,7 @@ def create_access_token(user: CTSUser, expires_delta: timedelta = None):
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
+    load_all_config()
     credentials_exception = HTTPException(
         status_code=HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
