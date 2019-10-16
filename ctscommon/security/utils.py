@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from typing import List
 
 import jwt
-from ctscommon.security.alternative_hasher import hasher
 from fastapi import Depends, HTTPException
 from passlib.context import CryptContext
 from jwt import PyJWTError
@@ -31,16 +30,16 @@ def load_all_config():
         _CONFIG_LOADED = True
 
 
-pwd_context = CryptContext(schemes=["bcrypt", "django_pbkdf2_sha256"], deprecated="auto")
-# old_pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+old_pwd_context = CryptContext(schemes=["django_pbkdf2_sha256"], deprecated="auto")
 
 
 def verify_password(plain_password, hashed_password) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-# def verify_old_password(plain_password, hashed_password) -> bool:
-#     return old_pwd_context.verify(plain_password, hashed_password)
+def verify_old_password(plain_password, hashed_password) -> bool:
+    return old_pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password):
