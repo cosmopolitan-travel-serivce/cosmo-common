@@ -10,11 +10,18 @@ class UserClient(MicroServiceClient):
     def __init__(self):
         MicroServiceClient.__init__(self, "AUTH", "/api/users")
 
-    def get_all_users(self) -> List[User]:
-        return self._get_url("/")
+    def get_all_users(self, page: int = 1, per_page: int = None, token: str = None) -> List[User]:
+        headers = self.default_headers
+        if token:
+            headers.update({"Authorization": f"Bearer {token}"})
+        params = {"page": page, "per_page": per_page}
+        return self._get_url("/", params, headers=headers)
 
-    def get_current_user(self) -> User:
-        return self._get_url("/me")
+    def get_current_user(self, token: str = None) -> User:
+        headers = self.default_headers
+        if token:
+            headers.update({"Authorization": f"Bearer {token}"})
+        return self._get_url("/me", headers=headers)
 
     def create_user(self, user: UserCreation) -> User:
 
@@ -55,8 +62,11 @@ class UserClient(MicroServiceClient):
         else:
             return False
 
-    def change_password(self, login: str, change_data: PasswordChange) -> bool:
-        response = self._put_url("/passwordchange", change_data.dict(skip_defaults=True))
+    def change_password(self, login: str, change_data: PasswordChange, token: str = None) -> bool:
+        headers = self.default_headers
+        if token:
+            headers.update({"Authorization": f"Bearer {token}"})
+        response = self._put_url("/passwordchange", change_data.dict(skip_defaults=True), headers=headers)
         if response.status_code == 202:
             return response.payload
         else:
@@ -67,8 +77,12 @@ class UserClient(MicroServiceClient):
     def validate_user(self, login: str) -> bool:
         return self._put_url(f"/{login}/validate", None)
 
-    def search_user(self, login: str) -> User:
-        return self._get_url(f"/{login}", None)
+    def search_user(self, param: str, token: str = None) -> User:
+        headers = self.default_headers
+        params = {"param": param}
+        if token:
+            headers.update({"Authorization": f"Bearer {token}"})
+        return self._get_url("/search", params=params, headers=headers)
 
     def rest_user_password_init(self, login: str) -> bool:
         return self._get_url(f"/{login}/passwordreset", None)
