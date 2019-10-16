@@ -3,8 +3,6 @@ from typing import Set, List
 
 
 class DisplayPnr(BaseModel):
-
-    """This class returns the information to make a pnr retrieve"""
     pcc: str = None
     pnr: str
     message_id: str = None
@@ -18,9 +16,6 @@ class PassengerType(BaseModel):
 
 
 class SearchPriceQuote(BaseModel):
-
-    """This class returns information to search for price quotes"""
-
     message_id: str = None
     pcc: str = None
     pnr: str = None
