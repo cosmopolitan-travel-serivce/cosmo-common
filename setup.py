@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='ctscommon',
-    version='0.3.7',
+    version='0.3.8',
     description='A python package to centralize everything common for CTS micro services',
     long_description=long_description,
     long_description_content_type="text/markdown",

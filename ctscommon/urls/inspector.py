@@ -29,10 +29,9 @@ def inspect_app(app: FastAPI, app_name: str) -> List[ApiUrl]:
     log.debug(f"Inspecting routes of app {app.title}")
     urls = []
     for route in app.routes:
-        if isinstance(route, Route):
+        if isinstance(route, APIRoute):
             operation_id = create_operation_id_from_url(route.path)
-            route: Route
-            if isinstance(route, APIRoute) and route.operation_id:
+            if route.operation_id:
                 route: APIRoute
                 operation_id = route.operation_id
             for method in route.methods:

@@ -43,9 +43,11 @@ async def init_client(eureka_url: str = None, application_name: str = None, inst
     if not instance_id:
         instance_id = f"{application_name}:{generate_nonce(21)}"
         log.warning(f"Not instance id given. Will use {instance_id}")
+    if not instance_host:
+        instance_host = internal_get_config(None, "Domain name", "DOMAIN_NAME", False) or ""
     log.info(f"Registering {application_name} to Eureka: {eureka_url}")
     eureka_client.init(eureka_server=eureka_url, app_name=application_name, instance_port=instance_port,
-                       instance_id=instance_id)
+                       instance_id=instance_id, instance_host=instance_host, ha_strategy=eureka_client.HA_STRATEGY_STICK)
 
 
 class MicroServiceClient:
