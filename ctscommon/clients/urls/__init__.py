@@ -47,7 +47,7 @@ class ApiUrlClient(MicroServiceClient):
         """
         response = self._get_url(f"/{service}")
         if response.status_code == 200:
-            return response.payload
+            return [ApiUrl(**data) for data in response.payload]
         else:
             raise ApiResponseError(response.status_code, response.payload)
 
@@ -58,7 +58,7 @@ class ApiUrlClient(MicroServiceClient):
         """
         response = self._get_url("/")
         if response.status_code == 200:
-            return response.payload
+            return [ApiUrl(**data) for data in response.payload]
         else:
             raise ApiResponseError(response.status_code, response.payload)
 
@@ -87,7 +87,7 @@ class ApiUrlClient(MicroServiceClient):
         """
         response = self._get_url(f"/{service}/{operation_id}/{method}")
         if response.status_code == 200:
-            return response.payload
+            return ApiUrl(**response.payload)
         else:
             raise ApiResponseError(response.status_code, response.payload)
 

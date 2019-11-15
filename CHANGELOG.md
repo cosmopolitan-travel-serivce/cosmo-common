@@ -4,3 +4,7 @@
 
 # 0.3.7
 - A password verifier using `django_pbkdf2_sha256` algorithm
+
+# 0.3.8
+- Inspect only api routes in FastApi routes
+- fix on getting API urls
