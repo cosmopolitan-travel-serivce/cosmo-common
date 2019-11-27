@@ -8,3 +8,7 @@
 # 0.3.8
 - Inspect only api routes in FastApi routes
 - fix on getting API urls
+
+# 0.3.9
+- get current user optional
+- force change password in the token
