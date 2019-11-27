@@ -82,8 +82,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
         offices: List[str] = payload.get("offices")
         is_cts_staff: bool = payload.get("is_cts_staff")
         is_agency_admin: bool = payload.get("is_agency_admin")
-        force_change_password: bool = payload.get("force_change_password", default=False)
-        full_name: str = payload.get("full_name", default="")
+        force_change_password: bool = bool(payload.get("force_change_password"))
+        full_name: str = payload.get("full_name")
         # expiration_date: str = payload.get("exp")
         if username is None:
             raise credentials_exception
