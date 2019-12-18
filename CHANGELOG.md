@@ -12,3 +12,6 @@
 # 0.3.9
 - get current user optional
 - force change password in the token
+
+# 0.3.10
+- add impersonator on CTS user and to the token
