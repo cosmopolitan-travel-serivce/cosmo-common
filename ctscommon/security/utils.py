@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import List
+from typing import List, Optional
 
 import jwt
 from fastapi import Depends, HTTPException
@@ -8,7 +8,7 @@ from jwt import PyJWTError
 from starlette.status import HTTP_401_UNAUTHORIZED
 
 from ctscommon.config.loader import get_config
-from ctscommon.security import oauth2_scheme
+from ctscommon.security import oauth2_scheme, optional_oauth2_scheme
 from ctscommon.security.models import CTSUser
 
 default_jwt_secret_key = None
@@ -57,6 +57,12 @@ def create_access_token(user: CTSUser, expires_delta: timedelta = None):
     return encoded_jwt
 
 
+async def get_current_user_optional(token: str = Depends(optional_oauth2_scheme)) -> Optional[CTSUser]:
+    if token:
+        return await get_current_user(token)
+    return None
+
+
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
     load_all_config()
     credentials_exception = HTTPException(
@@ -76,11 +82,16 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> CTSUser:
         offices: List[str] = payload.get("offices")
         is_cts_staff: bool = payload.get("is_cts_staff")
         is_agency_admin: bool = payload.get("is_agency_admin")
+        force_change_password: bool = bool(payload.get("force_change_password"))
+        full_name: str = payload.get("full_name")
+        impersonator: str = payload.get("impersonator")
         # expiration_date: str = payload.get("exp")
         if username is None:
             raise credentials_exception
-        user = CTSUser(username=username, email=email, full_name=None, customer=customer, permissions=permissions,
-                       managed_customers=managed_customers, offices=offices, is_cts_staff=is_cts_staff, is_agency_admin=is_agency_admin)
+        user = CTSUser(username=username, email=email, full_name=full_name, customer=customer, permissions=permissions,
+                       managed_customers=managed_customers, offices=offices, is_cts_staff=is_cts_staff,
+                       is_agency_admin=is_agency_admin, force_change_password=force_change_password,
+                       impersonator=impersonator)
     except PyJWTError:
         raise credentials_exception
     if user is None:

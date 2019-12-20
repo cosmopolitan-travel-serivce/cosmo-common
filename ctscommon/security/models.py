@@ -28,3 +28,8 @@ class CTSUser(BaseModel):
     offices: Optional[List[str]] = None
     is_cts_staff: Optional[bool] = None
     is_agency_admin: Optional[bool] = None
+    force_change_password: Optional[bool] = None
+    impersonator: Optional[str] = None
+
+    def is_impersonated(self):
+        return self.impersonator is not None
