@@ -15,3 +15,6 @@
 
 # 0.3.10
 - add impersonator on CTS user and to the token
+
+# 0.3.11
+- add auth url for api to get token
