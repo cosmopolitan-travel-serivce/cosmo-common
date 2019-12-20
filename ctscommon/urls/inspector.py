@@ -3,7 +3,6 @@ from typing import List
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
-from starlette.routing import Route
 
 from ctscommon.urls.schemas import ApiUrl
 
