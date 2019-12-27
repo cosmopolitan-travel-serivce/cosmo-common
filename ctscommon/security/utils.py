@@ -103,6 +103,7 @@ def create_refresh_token(token_info: RefreshTokenInfo, expires_delta: timedelta 
     :param expires_delta: timedelta -> expiration of the refresh token
     :return: str -> the refresh token
     """
+    load_all_config()
     if not expires_delta:
         expires_delta = timedelta(minutes=(ACCESS_TOKEN_EXPIRE_MINUTES or 5) * 3)
     if token_info.access_token:
@@ -121,6 +122,7 @@ def verify_refresh_token_info(refresh_token: str, access_token: str, origin: str
     :param origin: str -> The origin (username)
     :return: RefreshTokenInfo -> Object holder info of the refresh token
     """
+    load_all_config()
     decode_options = {}
     try:
         payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM], options=decode_options)
