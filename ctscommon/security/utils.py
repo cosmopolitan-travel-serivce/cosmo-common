@@ -15,7 +15,7 @@ from ctscommon.security.models import CTSUser, RefreshTokenInfo
 default_jwt_secret_key = None
 SECRET_KEY = None
 ALGORITHM = None
-ACCESS_TOKEN_EXPIRE_MINUTES = None
+ACCESS_TOKEN_EXPIRE_MINUTES: int = None
 _CONFIG_LOADED = False
 
 
@@ -105,7 +105,7 @@ def create_refresh_token(token_info: RefreshTokenInfo, expires_delta: timedelta 
     """
     load_all_config()
     if not expires_delta:
-        expires_delta = timedelta(minutes=(ACCESS_TOKEN_EXPIRE_MINUTES or 5) * 3)
+        expires_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES * 2)
     if token_info.access_token:
         token_info.access_token_hash = hash_token(token_info.access_token)
     else:
