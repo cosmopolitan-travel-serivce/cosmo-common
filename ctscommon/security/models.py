@@ -33,3 +33,9 @@ class CTSUser(BaseModel):
 
     def is_impersonated(self):
         return self.impersonator is not None
+
+
+class RefreshTokenInfo(BaseModel):
+    origin: str
+    access_token: str = None
+    access_token_hash: str = None
