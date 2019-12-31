@@ -18,3 +18,7 @@
 
 # 0.3.11
 - add auth url for api to get token
+
+# 0.3.12
+- generate a refresh token
+- verify a refresh token

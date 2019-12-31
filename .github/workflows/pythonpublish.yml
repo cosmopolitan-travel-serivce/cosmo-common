@@ -25,5 +25,5 @@ jobs:
       run: |
         devpi use http://$DEVPI_HOST:$DEVPI_PORT
         devpi login $DEVPI_USERNAME --password=$DEVPI_PASSWORD
-        devpi user $DEVPI_USERNAME/${{DEVPI_INDEX
+        devpi user $DEVPI_USERNAME/$DEVPI_INDEX
         devpi upload
