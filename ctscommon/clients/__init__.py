@@ -4,6 +4,7 @@ import py_eureka_client.eureka_client as eureka_client
 from ctscommon.clients.alternate_worker import _walker_generator
 from ctscommon.config.loader import get_config
 from ctscommon.security.random import generate_nonce
+
 log = logging.getLogger(__file__)
 
 
@@ -55,7 +56,6 @@ class MicroServiceClient:
         self.default_headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
     def _get_url(self, suffix_url, params: Dict[str, Any] = None, headers: Dict[str, Any] = None):
-        #return eureka_client.do_service(self.service_name, self.base_url + suffix_url, headers=headers, return_type="json")
         return eureka_client.walk_nodes(self.service_name, self.base_url + suffix_url,
                                         walker=_walker_generator("get", params=params, headers=headers))
 
