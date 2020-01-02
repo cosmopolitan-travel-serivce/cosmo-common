@@ -27,4 +27,4 @@
 - add logging handler
 
 # 0.3.14
-- add portal urls and permissions in auth
+- add urls from different microservices and permissions to auth
