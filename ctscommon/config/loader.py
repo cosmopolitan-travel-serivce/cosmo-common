@@ -1,10 +1,14 @@
-import dotenv
 import os
+from typing import Any
+
+from starlette.config import Config
+
+__config = Config(os.path.join(os.getcwd(), ".env"))
 
 
-def load_config_file(file_path: str):
-    dotenv.load_dotenv(dotenv_path=file_path)
+def get_config(key: str, default: Any = None, cast: Any = None) -> Any:
+    return __config.get(key, cast, default)
 
 
-def get_config(name: str, default=None):
-    return os.environ.get(name, default)
+def set_config(key: str, value: Any):
+    __config.environ.__setitem__(key, value)
