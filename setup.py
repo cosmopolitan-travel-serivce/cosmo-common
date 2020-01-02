@@ -21,7 +21,8 @@ setuptools.setup(
         "pyjwt",
         "passlib[bcrypt]",
         "py_eureka_client",
-        "requests"
+        "requests",
+        "PyYAML"
     ],
     test_suite='nose.collector',
     tests_require=['nose'],
