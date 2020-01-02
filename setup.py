@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='ctscommon',
-    version='0.3.12',
+    version='0.3.13',
     description='A python package to centralize everything common for CTS micro services',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -21,7 +21,8 @@ setuptools.setup(
         "pyjwt",
         "passlib[bcrypt]",
         "py_eureka_client",
-        "requests"
+        "requests",
+        "PyYAML"
     ],
     test_suite='nose.collector',
     tests_require=['nose'],
