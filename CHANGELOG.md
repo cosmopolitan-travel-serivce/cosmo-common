@@ -27,4 +27,4 @@
 - add logging handler
 
 # 0.3.14
-- add prtal urls and permissions in auth
+- add portal urls and permissions in auth
