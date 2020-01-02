@@ -22,3 +22,6 @@
 # 0.3.12
 - generate a refresh token
 - verify a refresh token
+
+# 0.3.13
+- add logging handler

@@ -5,5 +5,4 @@
 - auditors
 - Eureka config
 - Eureka clients
-
-
+- Logging
