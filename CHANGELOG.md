@@ -25,3 +25,6 @@
 
 # 0.3.13
 - add logging handler
+
+# 0.3.14
+- ad portal urls and permissions under auth
