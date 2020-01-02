@@ -12,7 +12,7 @@ class ApiUrlClient():
         self.base_url = base_url
 
     def get_service_urls(self, service: str) -> List[ApiUrl]:
-        url = f"{self.base_url}/security/urls/{service}"
+        url = f"{self.base_url}/api/security/urls/{service}"
         response = requests.get(url)
         if response.status_code == 200:
             return [ApiUrl(**data) for data in json.loads(response.content)]
@@ -20,7 +20,7 @@ class ApiUrlClient():
             raise ApiResponseError(response.status_code, response.content)
 
     def create_url(self, service: str, api_url: ApiUrlCreate) -> ApiUrl:
-        url = f"{self.base_url}/security/urls/{service}"
+        url = f"{self.base_url}/api/security/urls/{service}"
         api_url.permissions = list(api_url.permissions)
         response = requests.post(url, json.dumps(api_url.dict(skip_defaults=True)))
         if response.status_code == 201:
@@ -29,7 +29,7 @@ class ApiUrlClient():
             raise ApiResponseError(response.status_code, response.content)
 
     def batch_create_service_urls(self, service: str, api_urls: List[ApiUrlCreate]) -> List[ApiUrl]:
-        url = f"{self.base_url}/security/urls/{service}/batch-create"
+        url = f"{self.base_url}/api/security/urls/{service}/batch-create"
         data = []
         for api_url in api_urls:
             api_url.permissions = list(api_url.permissions)
