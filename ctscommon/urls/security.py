@@ -90,6 +90,9 @@ def secure_app(app: FastAPI, api_urls: List[ApiUrl]):
     for route in app.routes:
         if isinstance(route, APIRoute):
             route: APIRoute
+
+        if route.methods is None:
+            route.methods = ["GET"]
         for method in route.methods:
             # ISSUE: if we have multiple HTTP methods on a route, the security defined on the last HTTP method
             # will only apply.
