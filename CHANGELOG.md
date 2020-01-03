@@ -28,3 +28,6 @@
 
 # 0.3.14
 - add urls from different microservices and permissions to auth
+
+# 0.3.15
+-add default value for the field methods 
