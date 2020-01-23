@@ -33,4 +33,4 @@
 - add default value for the field methods 
 
 # 0.3.16
-- change variable auth_url
+- add COSMO_AUTH_URL as alternative environment variable for auth URL
