@@ -30,4 +30,7 @@
 - add urls from different microservices and permissions to auth
 
 # 0.3.15
--add default value for the field methods 
+- add default value for the field methods 
+
+# 0.3.16
+- add COSMO_AUTH_URL as alternative environment variable for auth URL
