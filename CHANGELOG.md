@@ -34,3 +34,6 @@
 
 # 0.3.16
 - add COSMO_AUTH_URL as alternative environment variable for auth URL
+
+# 0.3.17
+- add a security context holder
