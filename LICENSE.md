@@ -1,4 +1,4 @@
-Copyright © 2019, [CTS](https://www.ctsfares.com/).
+Copyright © 2020, [CTS](https://www.ctsfares.com/).
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
