@@ -7,3 +7,4 @@ passlib[bcrypt]
 py_eureka_client==0.7.2
 requests==2.22.0
 PyYAML==5.2
+werkzeug==1.0.0
