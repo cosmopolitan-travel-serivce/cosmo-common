@@ -22,7 +22,8 @@ setuptools.setup(
         "passlib[bcrypt]",
         "py_eureka_client",
         "requests",
-        "PyYAML"
+        "PyYAML",
+        "werkzeug",
     ],
     test_suite='nose.collector',
     tests_require=['nose'],
