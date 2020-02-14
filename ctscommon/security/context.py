@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from ctscommon.holders.request_context_holder import save_request_object, get_request_object_safe
+from ctscommon.holders.request_context_holder import save_object_in_request, read_object_from_request_safe
 from ctscommon.security.models import CTSUser
 from ctscommon.security.utils import get_current_user_optional
 
@@ -17,7 +17,7 @@ class SecurityContextHolder:
         Save the token and eventually the corresponding user
         :param token: str -> the token to save
         """
-        save_request_object("current_token", token)
+        save_object_in_request("current_token", token)
         user = await get_current_user_optional(token)
         SecurityContextHolder.save_current_user(user)
 
@@ -27,7 +27,7 @@ class SecurityContextHolder:
         Get the current token of the connected user
         :return: str
         """
-        return get_request_object_safe("current_token")
+        return read_object_from_request_safe("current_token")
 
     @staticmethod
     def save_current_user(user: Optional[CTSUser]):
@@ -36,7 +36,7 @@ class SecurityContextHolder:
         :param user: CTSUser -> The user to save
         :return:
         """
-        save_request_object("current_user", user)
+        save_object_in_request("current_user", user)
 
     @staticmethod
     def get_current_user() -> Optional[CTSUser]:
@@ -45,7 +45,7 @@ class SecurityContextHolder:
         ```save_current_user```
         :return: CTSUser
         """
-        return get_request_object_safe("current_user")
+        return read_object_from_request_safe("current_user")
 
     @staticmethod
     def get_current_user_login() -> Optional[str]:
